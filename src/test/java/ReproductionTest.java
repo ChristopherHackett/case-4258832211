@@ -18,6 +18,7 @@ public class ReproductionTest {
     String baseUri = "https://wx9xntolee.execute-api.eu-west-1.amazonaws.com";
     String endpoint = "/prod";
     Request simpleRequest;
+    Request slightlyLongerRequest;
     Request longRequest;
 
     private static Logger logger = LogManager.getLogger();
@@ -27,6 +28,7 @@ public class ReproductionTest {
         Webb w = Webb.create();
         w.setBaseUri(baseUri);
         simpleRequest = w.post(endpoint).body("{\"hello\":\"world!\"}");
+        slightlyLongerRequest = w.post(endpoint).body("{\"hello\":\"world!world!world!world!world!world!world!world!world!world!world!world!world!world!world!world!world!world!world!\"}");
         ClassLoader classLoader = getClass().getClassLoader();
         File testFile = new File(classLoader.getResource("test.bmp").getFile());
         longRequest = Helpers.loadLongRequest(w, endpoint, testFile);
@@ -48,6 +50,28 @@ public class ReproductionTest {
     public void simpleBodyPostWithoutCompression()
     {
         Response response = simpleRequest
+                .asJsonObject();
+        Helpers.logResponse(response, logger);
+        assertEquals(200, response.getStatusCode());
+    }
+
+
+    @Test
+    public void slightlyLongerBodyPostWithCompression()
+    {
+        Response response = slightlyLongerRequest
+                .compress()
+                .asJsonObject();
+        Helpers.logResponse(response, logger);
+        assertEquals(200, response.getStatusCode());
+    }
+
+
+
+    @Test
+    public void slightlyLongerBodyPostWithoutCompression()
+    {
+        Response response = slightlyLongerRequest
                 .asJsonObject();
         Helpers.logResponse(response, logger);
         assertEquals(200, response.getStatusCode());
