@@ -37,7 +37,8 @@ public class ReproductionTest {
     @Test
     public void simpleBodyPostWithCompression()
     {
-        Response response = simpleRequest
+        Request request = simpleRequest;
+        Response response = request
             .compress()
             .asJsonObject();
         Helpers.logResponse(response, logger);
@@ -49,7 +50,8 @@ public class ReproductionTest {
     @Test
     public void simpleBodyPostWithoutCompression()
     {
-        Response response = simpleRequest
+        Request request = simpleRequest;
+        Response response = request
                 .asJsonObject();
         Helpers.logResponse(response, logger);
         assertEquals(200, response.getStatusCode());
@@ -59,7 +61,8 @@ public class ReproductionTest {
     @Test
     public void slightlyLongerBodyPostWithCompression()
     {
-        Response response = slightlyLongerRequest
+        Request request = slightlyLongerRequest;
+        Response response = request
                 .compress()
                 .asJsonObject();
         Helpers.logResponse(response, logger);
@@ -71,7 +74,8 @@ public class ReproductionTest {
     @Test
     public void slightlyLongerBodyPostWithoutCompression()
     {
-        Response response = slightlyLongerRequest
+        Request request = slightlyLongerRequest;
+        Response response = request
                 .asJsonObject();
         Helpers.logResponse(response, logger);
         assertEquals(200, response.getStatusCode());
@@ -82,7 +86,8 @@ public class ReproductionTest {
     @Test
     public void longBodyPostWithCompression()
     {
-        Response response = longRequest
+        Request request = longRequest;
+        Response response = request
                 .compress()
                 .asJsonObject();
         Helpers.logResponse(response, logger);
@@ -92,7 +97,8 @@ public class ReproductionTest {
     @Test
     public void longBodyPostWithoutCompression()
     {
-        Response response = longRequest
+        Request request = longRequest;
+        Response response = request
                 .asJsonObject();
         Helpers.logResponse(response, logger);
         assertEquals(200, response.getStatusCode());
